@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getDatabase, ref, set, remove, onChildAdded, onChildRemoved } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword,onAuthStateChanged,sendEmailVerification,signInWithEmailAndPassword,sendPasswordResetEmail  } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getDatabase,child,get,query,equalTo,orderByChild, ref, set, remove, onChildAdded, onChildRemoved } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword,signInWithPopup,GithubAuthProvider,FacebookAuthProvider ,onAuthStateChanged,GoogleAuthProvider ,sendEmailVerification,signInWithEmailAndPassword,sendPasswordResetEmail  } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCOLVLNV-dD-kCdgy1W86z6Mvb2Kj2hBVE",
@@ -15,13 +15,25 @@ import { getAuth, createUserWithEmailAndPassword,onAuthStateChanged,sendEmailVer
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 let auth = getAuth()
+let googleProvider = new GoogleAuthProvider()
+let githubProvider = new GithubAuthProvider()
+let facebookProvider = new FacebookAuthProvider() 
 
 
 export {
     auth,
+    db,
+    ref,
+    get,
+    set,
+    child,query,equalTo,orderByChild,
     createUserWithEmailAndPassword,
     onAuthStateChanged,
     sendEmailVerification,
     signInWithEmailAndPassword,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    googleProvider,
+    signInWithPopup,
+    githubProvider,
+    facebookProvider
 }

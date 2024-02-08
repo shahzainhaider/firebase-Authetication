@@ -1,7 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   auth,
-  sendEmailVerification
+  sendEmailVerification,set,ref,db
 } from "../firebaseConfig.js";
 
 let email = document.getElementById("email");
@@ -13,13 +13,27 @@ document.getElementById('form').addEventListener('submit',handleSubmit)
 
 function handleSubmit(e){
   e.preventDefault()
-  if (password.value !== cPassword.value) {
-    alert("incorrect confirm password");
-    email.value = "";
-    password.value = "";
-    cPassword.value = "";
-    return;
+  // if (password.value !== cPassword.value) {
+  //   alert("incorrect confirm password");
+  //   email.value = "";
+  //   password.value = "";
+  //   cPassword.value = "";
+  //   return;
+  // }
+
+  let data  = {
+    email:email.value,
+    role:'admin'
   }
+  let timeStamp = new Date().getTime()
+  set(ref(db,`users/${timeStamp}`),data)
+  .then((snap)=>{
+    console.log('user added')
+
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });     
   // user creating
   createUserWithEmailAndPassword(auth, email.value, password.value)
   .then((data) => {
